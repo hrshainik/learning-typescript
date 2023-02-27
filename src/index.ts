@@ -113,6 +113,29 @@ let nullType: null = null;
 // Undefined
 let undefinedType: undefined = undefined;
 
+// Unknown Type
+function stringifyForLogging(value: unknown): string {
+  if (typeof value === "function") {
+    // Within this branch, `value` has type `Function`,
+    // so we can access the function's `name` property
+    const functionName = value.name || "(anonymous)";
+    return `[function ${functionName}]`;
+  }
+
+  if (value instanceof Date) {
+    // Within this branch, `value` has type `Date`,
+    // so we can call the `toISOString` method
+    return value.toISOString();
+  }
+
+  return String(value);
+}
+
+// Never Type
+function failDeclaration(message: string): never {
+  throw new Error(message);
+}
+
 // Literal Types
 let x: 50 | 100 = 100;
 
